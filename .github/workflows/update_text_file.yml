@@ -1,0 +1,53 @@
+name: Update Text Files
+
+on:
+  schedule:
+    - cron: "0 0 */7 * *" # Chạy mỗi 7 ngày vào 00:00 UTC
+  workflow_dispatch: # Cho phép chạy thủ công
+
+jobs:
+  update-text-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch text files from URLs
+        run: |
+          urls=(
+            "https://easylist.to/easylist/easylist.txt"
+            "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt"
+            "https://easylist.to/easylist/easyprivacy.txt"
+            "https://abpvn.com/filter/abpvn-bGPG26.txt"
+            "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_18_Annoyances_Cookies/filter.txt"
+            "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_19_Annoyances_Popups/filter.txt"
+            "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_22_Annoyances_Widgets/filter.txt"
+            "https://secure.fanboy.co.nz/fanboy-annoyance.txt"
+          )
+
+          file1="all.txt"
+          file2="annoyances.txt"
+
+          > "$file1" # Xóa nội dung cũ nếu có
+          > "$file2" # Xóa nội dung cũ nếu có
+
+          for i in "${!urls[@]}"; do
+            echo "Fetching: ${urls[$i]}"
+            if [[ $i -lt 4 ]]; then
+              curl -s "${urls[$i]}" >> "$file1"
+              echo -e "\n" >> "$file1"
+            else
+              curl -s "${urls[$i]}" >> "$file2"
+              echo -e "\n" >> "$file2"
+            fi
+          done
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "khoiptx1911"
+          git config --global user.email "phamtranxuankhoi@gmail.com"
+
+          git add file1.txt file2.txt
+          git commit -m "Auto-update filter lists [skip ci]" || exit 0
+          git push
