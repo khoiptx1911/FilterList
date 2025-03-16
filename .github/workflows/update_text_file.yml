@@ -34,7 +34,7 @@ jobs:
 
           for i in "${!urls[@]}"; do
             echo "Fetching: ${urls[$i]}"
-            if [[ $i -lt 4 ]]; then
+            if [[ $i -lt 3 ]]; then
               curl -s "${urls[$i]}" >> "$file1"
               echo -e "\n" >> "$file1"
             else
