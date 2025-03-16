@@ -27,8 +27,8 @@ jobs:
             "https://github.com/khoiptx1911/tictactoe/blob/main/tictactoe/test.txt"
           )
 
-          file1="./all.txt"
-          file2="./annoyances.txt"
+          file1="all.txt"
+          file2="annoyances.txt"
 
           > "$file1" # Xóa nội dung cũ nếu có
           > "$file2" # Xóa nội dung cũ nếu có
@@ -49,6 +49,6 @@ jobs:
           git config --global user.name "khoiptx1911"
           git config --global user.email "phamtranxuankhoi@gmail.com"
 
-          git add file1.txt file2.txt
+          git add all.txt annoyances.txt
           git commit -m "Auto-update filter lists [skip ci]" || exit 0
           git push
