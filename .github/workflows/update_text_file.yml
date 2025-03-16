@@ -27,8 +27,8 @@ jobs:
             "https://github.com/khoiptx1911/tictactoe/blob/main/tictactoe/test.txt"
           )
 
-          file1="all.txt"
-          file2="annoyances.txt"
+          file1="./all.txt"
+          file2="./annoyances.txt"
 
           > "$file1" # Xóa nội dung cũ nếu có
           > "$file2" # Xóa nội dung cũ nếu có
