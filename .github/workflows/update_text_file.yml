@@ -46,8 +46,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name "khoiptx1911"
-          git config --global user.email "phamtranxuankhoi@gmail.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
           git add all.txt annoyances.txt
           git commit -m "Auto-update filter lists [skip ci]" || exit 0
